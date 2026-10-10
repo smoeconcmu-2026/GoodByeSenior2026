@@ -3,42 +3,54 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Good Bye Senior - Best Dressed 🌟</title>
+    <title>GoodByeSenior2026 - Best Dress Vote</title>
     
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Prompt & Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <script>
         tailwind.config = {
             theme: {
                 extend: {
+                    colors: {
+                        glam: {
+                            50: '#fff1f4',
+                            100: '#ffe4e9',
+                            200: '#fecdde',
+                            300: '#fba0be',
+                            400: '#f66795',
+                            500: '#ed3b73',
+                            600: '#da1e58',
+                            700: '#b81244',
+                            800: '#99123c',
+                            900: '#801338',
+                            950: '#46041a',
+                        },
+                        rosegold: {
+                            light: '#fce8e6',
+                            DEFAULT: '#b76e79',
+                            dark: '#8e4a55',
+                            accent: '#f3a9b1',
+                            gold: '#e0a96d'
+                        }
+                    },
                     fontFamily: {
                         sans: ['Prompt', 'sans-serif'],
+                        heading: ['Montserrat', 'Prompt', 'sans-serif'],
                     },
-                    colors: {
-                        theme: {
-                            pink: '#ff4b98',
-                            purple: '#9b4dff',
-                            dark: '#0f0518',
-                            card: 'rgba(255, 255, 255, 0.05)',
-                        }
-                    },
-                    animation: {
-                        'twinkle': 'twinkle 3s ease-in-out infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                    },
-                    keyframes: {
-                        twinkle: {
-                            '0%, 100%': { opacity: 0.3, transform: 'scale(0.8)' },
-                            '50%': { opacity: 1, transform: 'scale(1.2)' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-10px)' },
-                        }
+                    backgroundImage: {
+                        'glam-radial': 'radial-gradient(circle at 50% 20%, #46041a 0%, #20010c 60%, #0d0005 100%)',
+                        'card-gradient': 'linear-gradient(135deg, rgba(237, 59, 115, 0.12) 0%, rgba(32, 1, 12, 0.6) 100%)',
+                        'rosegold-gradient': 'linear-gradient(135deg, #f3a9b1 0%, #b76e79 50%, #e0a96d 100%)',
+                        'gold-gradient': 'linear-gradient(135deg, #ffe259 0%, #ffa751 100%)',
+                        'silver-gradient': 'linear-gradient(135deg, #e0e0e0 0%, #f5f5f5 50%, #9e9e9e 100%)',
+                        'bronze-gradient': 'linear-gradient(135deg, #f3a9b1 0%, #8e4a55 100%)',
                     }
                 }
             }
@@ -47,156 +59,573 @@
 
     <style>
         body {
-            background-color: #0f0518;
+            background: #110107;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(155, 77, 255, 0.3) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(255, 75, 152, 0.3) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(155, 77, 255, 0.3) 0px, transparent 50%),
-                radial-gradient(at 0% 100%, rgba(255, 75, 152, 0.3) 0px, transparent 50%);
+                radial-gradient(circle at 20% 15%, rgba(237, 59, 115, 0.25) 0%, transparent 40%),
+                radial-gradient(circle at 80% 80%, rgba(224, 169, 109, 0.18) 0%, transparent 45%),
+                radial-gradient(circle at 50% 50%, rgba(70, 4, 26, 0.8) 0%, #0d0005 100%);
             background-attachment: fixed;
-            color: white;
             min-height: 100vh;
-            overflow-x: hidden;
+            color: #fce8e6;
         }
 
         .glass-panel {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(35, 4, 18, 0.55);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(243, 169, 177, 0.22);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
         }
 
-        /* Starry Background Container */
-        #stars-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-            pointer-events: none;
+        .glass-card {
+            background: rgba(48, 6, 24, 0.65);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(243, 169, 177, 0.18);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .star {
+        .glass-card:hover:not(.disabled-table) {
+            transform: translateY(-5px);
+            border-color: rgba(243, 169, 177, 0.6);
+            box-shadow: 0 10px 25px -5px rgba(237, 59, 115, 0.35);
+        }
+
+        .glam-text-gradient {
+            background: linear-gradient(135deg, #ffffff 0%, #f3a9b1 50%, #e0a96d 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .rosegold-border {
+            border-image: linear-gradient(to right, #f3a9b1, #b76e79, #e0a96d) 1;
+        }
+
+        .podium-1 {
+            order: 2;
+            height: 220px;
+        }
+        .podium-2 {
+            order: 1;
+            height: 170px;
+        }
+        .podium-3 {
+            order: 3;
+            height: 140px;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(237, 59, 115, 0.4); }
+            50% { box-shadow: 0 0 30px rgba(237, 59, 115, 0.8), 0 0 45px rgba(224, 169, 109, 0.4); }
+        }
+
+        .vote-btn-glow {
+            animation: pulseGlow 3s infinite;
+        }
+
+        /* Sparkle effect particles */
+        .sparkle {
             position: absolute;
-            background-color: white;
+            width: 4px;
+            height: 4px;
             border-radius: 50%;
-            animation: twinkle var(--duration, 3s) ease-in-out infinite;
-            animation-delay: var(--delay, 0s);
+            background-color: #fff;
+            box-shadow: 0 0 10px #f3a9b1, 0 0 20px #f3a9b1;
+            animation: floatSparkle 4s infinite ease-in-out;
         }
 
-        /* Hide scrollbar for cleaner look */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.2); 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: rgba(255, 75, 152, 0.5); 
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: rgba(255, 75, 152, 0.8); 
-        }
-        
-        .progress-bar-fill {
-            transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+        @keyframes floatSparkle {
+            0% { transform: translateY(0) scale(0); opacity: 0; }
+            50% { opacity: 0.8; transform: translateY(-20px) scale(1); }
+            100% { transform: translateY(-40px) scale(0); opacity: 0; }
         }
     </style>
 </head>
-<body class="antialiased font-sans flex flex-col items-center">
+<body class="font-sans antialiased pb-16">
 
-    <div id="stars-container"></div>
+    <!-- Sparkles Deco -->
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+        <div class="sparkle" style="top: 15%; left: 10%; animation-delay: 0s;"></div>
+        <div class="sparkle" style="top: 35%; left: 85%; animation-delay: 1s;"></div>
+        <div class="sparkle" style="top: 70%; left: 20%; animation-delay: 2s;"></div>
+        <div class="sparkle" style="top: 80%; left: 75%; animation-delay: 1.5s;"></div>
+    </div>
 
-    <header class="w-full max-w-4xl mx-auto p-6 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
-        <div class="text-center md:text-left animate-float">
-            <h1 class="text-3xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-theme-pink to-theme-purple">
-                <i class="fa-solid fa-star text-theme-pink text-2xl md:text-3xl mr-2"></i>
-                Good Bye Senior
-            </h1>
-            <p class="text-gray-300 text-sm md:text-base mt-1">โหวตการแต่งกายยอดเยี่ยม (Best Dressed)</p>
-        </div>
-        
-        <nav class="glass-panel p-1 rounded-full flex gap-1">
-            <button id="nav-vote" onclick="switchTab('vote')" class="px-6 py-2 rounded-full text-sm font-medium transition-all duration-300 bg-gradient-to-r from-theme-pink to-theme-purple shadow-lg shadow-theme-pink/30">
-                <i class="fa-solid fa-check-to-slot mr-2"></i> โหวต
-            </button>
-            <button id="nav-dash" onclick="switchTab('dashboard')" class="px-6 py-2 rounded-full text-sm font-medium text-gray-300 hover:text-white transition-all duration-300">
-                <i class="fa-solid fa-chart-simple mr-2"></i> ผลโหวต
-            </button>
-        </nav>
-    </header>
+    <!-- Main Container -->
+    <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
 
-    <main class="w-full max-w-4xl mx-auto p-4 md:p-6 pb-20 relative z-10 flex-grow">
-        
-        <!-- Voted Status Banner (Hidden by default) -->
-        <div id="voted-banner" class="hidden mb-8 glass-panel rounded-2xl p-6 text-center border-theme-pink/50 border relative overflow-hidden">
-            <div class="absolute -right-10 -top-10 w-40 h-40 bg-theme-pink/20 rounded-full blur-3xl"></div>
-            <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-theme-purple/20 rounded-full blur-3xl"></div>
-            
-            <div class="w-16 h-16 mx-auto bg-gradient-to-br from-theme-pink to-theme-purple rounded-full flex items-center justify-center mb-4 shadow-[0_0_20px_rgba(255,75,152,0.4)]">
-                <i class="fa-solid fa-check text-2xl text-white"></i>
+        <!-- Admin Toggle Button (Top Right) -->
+        <div class="flex justify-between items-center mb-6">
+            <div class="flex items-center space-x-2">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-glam-900/80 text-rosegold-accent border border-rosegold-accent/30">
+                    <i class="fa-solid font-normal fa-sparkles mr-1.5 text-rosegold-gold"></i> Best Dress Award
+                </span>
             </div>
-            <h2 class="text-xl md:text-2xl font-bold text-white mb-2">คุณได้ทำการโหวตเรียบร้อยแล้ว!</h2>
-            <p class="text-gray-300 text-lg">ขอบคุณที่ร่วมโหวต คุณได้โหวตให้กับ <span id="voted-table-num" class="font-bold text-theme-pink text-xl">โต๊ะ ?</span></p>
-            <button onclick="switchTab('dashboard')" class="mt-6 px-6 py-2 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 transition-all">
-                ดูผลโหวตปัจจุบัน <i class="fa-solid fa-arrow-right ml-2"></i>
+            <button onclick="toggleAdminPanel()" class="text-xs text-rosegold-accent/70 hover:text-rosegold-accent transition flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass-card">
+                <i class="fa-solid fa-user-gear"></i> Admin Panel
             </button>
         </div>
 
-        <!-- Voting View -->
-        <section id="view-vote" class="w-full transition-opacity duration-500">
-            <div class="flex justify-between items-end mb-6">
-                <div>
-                    <h2 class="text-2xl font-semibold text-white">เลือกโต๊ะที่คุณชื่นชอบ</h2>
-                    <p class="text-gray-400 text-sm mt-1">กรุณาเลือกตัวแทนจากโต๊ะเพื่อโหวต (1 เครื่อง / 1 สิทธิ์)</p>
+        <!-- Header Banner -->
+        <header class="text-center mb-10">
+            <div class="inline-block relative mb-3">
+                <h1 class="font-heading font-extrabold text-4xl sm:text-6xl tracking-tight glam-text-gradient uppercase">
+                    Good Bye Senior
+                </h1>
+                <span class="block text-xl sm:text-2xl font-bold tracking-widest text-rosegold-gold font-heading mt-1">
+                    2026
+                </span>
+            </div>
+            <p class="text-base sm:text-lg text-rosegold-light/90 max-w-xl mx-auto font-light leading-relaxed">
+                ร่วมโหวตการแต่งกายยอดเยี่ยมประทับใจที่สุดแห่งค่ำคืนนี้
+            </p>
+            <div class="w-24 h-1 bg-rosegold-gradient mx-auto mt-4 rounded-full"></div>
+        </header>
+
+        <!-- Status Banner: Already Voted Indicator -->
+        <div id="alreadyVotedBanner" class="hidden mb-8 transform transition-all duration-500">
+            <div class="glass-panel rounded-2xl p-4 sm:p-6 border-rosegold-accent/40 text-center relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-glam-500/20 rounded-full blur-xl pointer-events-none"></div>
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <div class="w-12 h-12 rounded-full bg-glam-500/20 border border-glam-400 flex items-center justify-center text-glam-300 text-xl flex-shrink-0">
+                        <i class="fa-solid fa-circle-check"></i>
+                    </div>
+                    <div class="text-center sm:text-left">
+                        <h3 class="text-lg font-bold text-white">คุณได้ทำการลงคะแนนเรียบร้อยแล้ว</h3>
+                        <p class="text-sm text-rosegold-accent">
+                            คุณโหวตให้ <span id="userVotedTableText" class="font-bold text-rosegold-gold text-base underline underline-offset-4">โต๊ะ -</span> (จำกัด 1 คนต่อ 1 โหวต)
+                        </p>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Loading State -->
-            <div id="vote-loading" class="flex flex-col items-center justify-center py-20">
-                <i class="fa-solid fa-circle-notch fa-spin text-4xl text-theme-pink mb-4"></i>
-                <p class="text-gray-400">กำลังโหลดข้อมูล...</p>
+        <!-- ================= SECTION 1: VOTING CARDS (Shown if NOT voted) ================= -->
+        <section id="votingSection" class="mb-12">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-xl sm:text-2xl font-bold text-white font-heading flex items-center gap-2">
+                        <i class="fa-solid fa-check-to-slot text-glam-400"></i> เลือกโต๊ะที่คุณชื่นชอบ
+                    </h2>
+                    <p class="text-xs sm:text-sm text-rosegold-light/70 mt-1">คลิกเลือกโต๊ะที่ต้องการ แล้วกดยืนยันการลงคะแนน (งดโหวตโต๊ะ 4, 5, 25)</p>
+                </div>
+                <span class="text-xs bg-glam-950/80 text-rosegold-accent px-3 py-1.5 rounded-lg border border-rosegold-accent/20">
+                    ทั้งหมด 25 โต๊ะ
+                </span>
             </div>
 
-            <!-- Candidates Grid -->
-            <div id="candidates-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 hidden">
-                <!-- Dynamically populated by JS -->
+            <!-- Grid 25 Tables -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-4" id="tablesGrid">
+                <!-- JavaScript will populate 25 tables here -->
             </div>
         </section>
 
-        <section id="view-dashboard" class="w-full hidden opacity-0 transition-opacity duration-500">
+        <!-- ================= SECTION 2: POLL RESULTS (Shown ONLY AFTER Voting) ================= -->
+        <section id="resultsSection" class="hidden mb-12 transform transition-all duration-700">
+            
             <div class="text-center mb-8">
-                <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-theme-pink to-theme-purple inline-block">
-                    ผลคะแนน Real-time
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-glam-900/90 border border-rosegold-accent/40 text-rosegold-gold text-sm font-semibold mb-2">
+                    <i class="fa-solid fa-trophy"></i> Live Poll Results
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-extrabold text-white font-heading">
+                    สรุปผลการลงคะแนนล่าสุด
                 </h2>
-                <p class="text-gray-400 text-sm mt-2">อัปเดตคะแนนล่าสุดโดยอัตโนมัติ</p>
+                <p class="text-xs sm:text-sm text-rosegold-light/70 mt-1">คะแนนเรียงลำดับสดจากผู้เข้าร่วมงานทั้งหมด</p>
             </div>
 
-            <!-- Top 3 Podium -->
-            <div id="podium-container" class="flex justify-center items-end gap-2 md:gap-6 mb-12 h-64 mt-10">
-                <!-- Rank 2 -->
-                <div class="flex flex-col items-center w-1/3 max-w-[120px] animate-float" style="animation-delay: 0.2s;">
-                    <div class="glass-panel p-2 rounded-full mb-2 border-gray-300/50 shadow-[0_0_15px_rgba(255,255,255,0.2)]">
-                        <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-700 flex items-center justify-center">
-                            <span class="text-xl md:text-2xl font-bold text-gray-300" id="podium-2-table">-</span>
-                        </div>
-                    </div>
-                    <div class="w-full bg-gradient-to-t from-gray-600/50 to-gray-400/30 rounded-t-lg flex flex-col items-center justify-start pt-4 h-32 border-t border-x border-gray-400/30">
-                        <span class="text-2xl font-bold text-gray-300">2nd</span>
-                        <span class="text-sm text-gray-400 mt-1" id="podium-2-score">0 โหวต</span>
-                    </div>
-                </div>
+            <!-- TOP 3 PODIUM -->
+            <div class="glass-panel rounded-3xl p-6 sm:p-8 mb-8 border-rosegold-accent/30 relative overflow-hidden">
+                <div class="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-24 bg-gradient-to-b from-glam-500/15 to-transparent blur-2xl pointer-events-none"></div>
 
-                <!-- Rank 1 -->
-                <div class="flex flex-col items-center w-1/3 max-w-[140px] animate-float z-10">
-                    <div class="fa-solid fa-crown text-yellow-400 text-3xl mb-1 filter drop-shadow-[0_0_10px_rgba(250,204,21,0.8)]"></div>
-                    <div class="glass-panel p-2 rounded-full mb-2 border-yellow-400/50 shadow-[0_0_20px_rgba(250,204,21,0.4)]">
-                        <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-yellow-300 to-yellow-600 flex items-center justify-center">
-                            <span class="text-2xl md:text-3xl font-bold text-white shadow-sm" id="podium-1-table">-</span>
+                <h3 class="text-center font-heading font-bold text-lg sm:text-xl text-rosegold-gold mb-6 flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-crown text-rosegold-gold animate-bounce"></i> 3 อันดับแรกยอดนิยม
+                </h3>
+
+                <!-- Podium Layout -->
+                <div class="flex justify-center items-end gap-2 sm:gap-6 pt-8 pb-4 max-w-2xl mx-auto" id="podiumContainer">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+
+            <!-- FULL RANKINGS TABLE -->
+            <div class="glass-panel rounded-2xl p-5 sm:p-7">
+                <h3 class="font-heading font-bold text-lg text-white mb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-list-ol text-glam-400"></i> ลำดับคะแนนทุกโต๊ะ
+                </h3>
+
+                <div class="space-y-2.5" id="rankingsList">
+                    <!-- Populated by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Control Panel (Hidden by default) -->
+        <div id="adminPanel" class="hidden glass-panel rounded-2xl p-5 mb-8 border-yellow-500/40 bg-black/80">
+            <div class="flex items-center justify-between mb-4 border-b border-white/10 pb-3">
+                <h3 class="text-sm font-bold text-yellow-400 flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Admin Control Panel (สำหรับการทดสอบ)
+                </h3>
+                <button onclick="toggleAdminPanel()" class="text-gray-400 hover:text-white text-xs">
+                    <i class="fa-solid fa-xmark text-base"></i>
+                </button>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <button onclick="clearMyVote()" class="px-3 py-2 bg-yellow-600/30 hover:bg-yellow-600/50 text-yellow-200 border border-yellow-500/40 rounded-xl text-xs font-semibold transition">
+                    <i class="fa-solid fa-rotate-left mr-1"></i> ล้างสิทธิ์โหวตเครื่องนี้ (Clear My Vote)
+                </button>
+                <button onclick="simulateVotes()" class="px-3 py-2 bg-glam-700/50 hover:bg-glam-600/60 text-white border border-glam-400/40 rounded-xl text-xs font-semibold transition">
+                    <i class="fa-solid fa-dice mr-1"></i> สุ่มเพิ่มคะแนน (+50 โหวต)
+                </button>
+                <button onclick="resetAllVotes()" class="px-3 py-2 bg-red-900/40 hover:bg-red-800/60 text-red-200 border border-red-500/40 rounded-xl text-xs font-semibold transition">
+                    <i class="fa-solid fa-trash-can mr-1"></i> รีเซ็ตคะแนนทั้งหมดเป็น 0
+                </button>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="text-center text-xs text-rosegold-accent/50 mt-12 border-t border-white/5 pt-6">
+            <p>GoodByeSenior2026 Best Dress Voting System</p>
+            <p class="mt-1 font-light">จำกัดสิทธิ์ 1 คนต่อ 1 โหวต • งดโหวตโต๊ะ 4, 5 และ 25</p>
+        </footer>
+    </div>
+
+    <!-- VOTING CONFIRMATION MODAL -->
+    <div id="voteModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="glass-panel max-w-md w-full rounded-3xl p-6 sm:p-8 border-rosegold-accent/50 text-center transform scale-95 transition-transform duration-300 relative overflow-hidden" id="modalContent">
+            
+            <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-glam-600 to-rosegold-gold text-white text-2xl font-bold flex items-center justify-center mx-auto mb-4 shadow-lg shadow-glam-600/30">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <h3 class="text-xl font-bold text-white font-heading mb-1">ยืนยันการลงคะแนน</h3>
+            <p class="text-xs text-rosegold-light/70 mb-6">คุณกำลังจะลงคะแนนให้โต๊ะต่อไปนี้ (ไม่สามารถแก้ไขได้ภายหลัง)</p>
+
+            <div class="bg-glam-950/80 rounded-2xl p-4 border border-rosegold-accent/30 mb-6">
+                <span class="text-xs uppercase text-rosegold-accent font-semibold block mb-1">โต๊ะที่เลือก</span>
+                <span id="modalTableNumber" class="text-4xl font-extrabold font-heading text-rosegold-gold">โต๊ะ --</span>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeModal()" class="flex-1 py-3 px-4 rounded-xl border border-white/20 text-rosegold-light hover:bg-white/5 transition text-sm font-semibold">
+                    ยกเลิก
+                </button>
+                <button id="confirmVoteBtn" onclick="submitVote()" class="flex-1 py-3 px-4 rounded-xl bg-rosegold-gradient text-glam-950 hover:brightness-110 transition text-sm font-bold shadow-lg shadow-glam-500/30">
+                    ยืนยันโหวต
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        const DISABLED_TABLES = [4, 5, 25];
+        const TOTAL_TABLES = 25;
+        let selectedTableForVote = null;
+
+        // Load votes from localStorage or init default
+        function getVotesData() {
+            const saved = localStorage.getItem('gbs2026_votes');
+            if (saved) {
+                return JSON.parse(saved);
+            }
+            // Init default votes
+            const defaultVotes = {};
+            for (let i = 1; i <= TOTAL_TABLES; i++) {
+                defaultVotes[i] = 0;
+            }
+            localStorage.setItem('gbs2026_votes', JSON.stringify(defaultVotes));
+            return defaultVotes;
+        }
+
+        function saveVotesData(votes) {
+            localStorage.setItem('gbs2026_votes', JSON.stringify(votes));
+        }
+
+        function getUserVoteStatus() {
+            const hasVoted = localStorage.getItem('gbs2026_hasVoted') === 'true';
+            const votedTable = localStorage.getItem('gbs2026_votedTable');
+            return { hasVoted, votedTable: votedTable ? parseInt(votedTable) : null };
+        }
+
+        // Render Tables Grid
+        function renderTables() {
+            const grid = document.getElementById('tablesGrid');
+            const { hasVoted, votedTable } = getUserVoteStatus();
+            grid.innerHTML = '';
+
+            for (let i = 1; i <= TOTAL_TABLES; i++) {
+                const isDisabled = DISABLED_TABLES.includes(i);
+                const isSelectedByUser = votedTable === i;
+
+                const card = document.createElement('div');
+                card.className = `glass-card rounded-2xl p-4 flex flex-col justify-between relative overflow-hidden ${
+                    isDisabled 
+                        ? 'opacity-40 grayscale cursor-not-allowed border-white/5 bg-black/40 disabled-table' 
+                        : hasVoted 
+                            ? 'cursor-default opacity-75' 
+                            : 'cursor-pointer hover:border-glam-400'
+                } ${isSelectedByUser ? 'border-2 border-rosegold-gold bg-glam-800/40' : ''}`;
+
+                let content = `
+                    <div class="flex items-start justify-between mb-2">
+                        <span class="text-xs font-semibold px-2 py-0.5 rounded-md ${isDisabled ? 'bg-gray-800 text-gray-400' : 'bg-glam-900/80 text-rosegold-accent border border-rosegold-accent/20'}">
+                            Table
+                        </span>
+                        ${isDisabled ? '<span class="text-[10px] bg-red-950 text-red-300 px-2 py-0.5 rounded-full border border-red-800/40">งดโหวต</span>' : ''}
+                        ${isSelectedByUser ? '<span class="text-[10px] bg-rosegold-gold text-glam-950 font-bold px-2 py-0.5 rounded-full"><i class="fa-solid fa-check"></i> เลือกแล้ว</span>' : ''}
+                    </div>
+
+                    <div class="text-center my-2">
+                        <span class="font-heading font-extrabold text-3xl sm:text-4xl ${isDisabled ? 'text-gray-500' : 'glam-text-gradient'}">
+                            ${i < 10 ? '0' + i : i}
+                        </span>
+                    </div>
+                `;
+
+                if (!isDisabled && !hasVoted) {
+                    content += `
+                        <button onclick="openVoteModal(${i})" class="w-full mt-2 py-2 px-3 rounded-xl bg-glam-600/60 hover:bg-glam-500 text-white font-medium text-xs transition border border-glam-400/30 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-heart text-rosegold-accent text-[10px]"></i> โหวตโต๊ะนี้
+                        </button>
+                    `;
+                } else if (isDisabled) {
+                    content += `
+                        <div class="w-full mt-2 py-1.5 px-2 rounded-xl bg-gray-900/50 text-gray-500 font-normal text-[11px] text-center border border-white/5">
+                            ไม่อยู่ในเงื่อนไข
+                        </div>
+                    `;
+                } else {
+                    content += `
+                        <div class="w-full mt-2 py-1.5 px-2 rounded-xl bg-black/30 text-rosegold-accent/60 font-normal text-[11px] text-center">
+                            ${isSelectedByUser ? 'ตัวเลือกของคุณ' : 'ลงคะแนนแล้ว'}
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = content;
+                grid.appendChild(card);
+            }
+        }
+
+        // Open Modal Confirmation
+        function openVoteModal(tableNum) {
+            const { hasVoted } = getUserVoteStatus();
+            if (hasVoted) return;
+
+            selectedTableForVote = tableNum;
+            document.getElementById('modalTableNumber').innerText = `โต๊ะ ${tableNum}`;
+            
+            const modal = document.getElementById('voteModal');
+            const content = document.getElementById('modalContent');
+            
+            modal.classList.remove('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-95');
+            content.classList.add('scale-100');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('voteModal');
+            const content = document.getElementById('modalContent');
+            
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            content.classList.remove('scale-100');
+            content.classList.add('scale-95');
+            selectedTableForVote = null;
+        }
+
+        // Submit Vote Function
+        function submitVote() {
+            if (!selectedTableForVote) return;
+
+            const votes = getVotesData();
+            votes[selectedTableForVote] = (votes[selectedTableForVote] || 0) + 1;
+            saveVotesData(votes);
+
+            // Save user vote state
+            localStorage.setItem('gbs2026_hasVoted', 'true');
+            localStorage.setItem('gbs2026_votedTable', selectedTableForVote.toString());
+
+            closeModal();
+            triggerConfetti();
+            updateUIState();
+        }
+
+        // Render Podium & Rankings Results
+        function renderResults() {
+            const votes = getVotesData();
+            
+            // Filter out disabled tables and sort
+            const sortedTables = Object.keys(votes)
+                .map(t => parseInt(t))
+                .filter(t => !DISABLED_TABLES.includes(t))
+                .map(t => ({ table: t, count: votes[t] }))
+                .sort((a, b) => b.count - a.count || a.table - b.table);
+
+            const totalValidVotes = sortedTables.reduce((sum, item) => sum + item.count, 0);
+
+            // 1. Render Top 3 Podium
+            const podiumContainer = document.getElementById('podiumContainer');
+            podiumContainer.innerHTML = '';
+
+            const top3 = [
+                sortedTables[1] || { table: '-', count: 0 }, // 2nd Place (Left)
+                sortedTables[0] || { table: '-', count: 0 }, // 1st Place (Center)
+                sortedTables[2] || { table: '-', count: 0 }  // 3rd Place (Right)
+            ];
+
+            const podiumConfigs = [
+                { rank: 2, height: 'h-40 sm:h-48', bg: 'bg-silver-gradient', textColor: 'text-gray-200', title: 'รองอันดับ 1', order: 'order-1' },
+                { rank: 1, height: 'h-52 sm:h-60', bg: 'bg-gold-gradient', textColor: 'text-amber-950', title: 'ชนะเลิศ', order: 'order-2', isWinner: true },
+                { rank: 3, height: 'h-32 sm:h-40', bg: 'bg-bronze-gradient', textColor: 'text-rosegold-light', title: 'รองอันดับ 2', order: 'order-3' }
+            ];
+
+            top3.forEach((item, index) => {
+                const config = podiumConfigs[index];
+                const podiumEl = document.createElement('div');
+                podiumEl.className = `flex-1 flex flex-col items-center ${config.order}`;
+
+                podiumEl.innerHTML = `
+                    <div class="mb-2 text-center">
+                        ${config.isWinner ? '<i class="fa-solid fa-crown text-2xl sm:text-3xl text-rosegold-gold mb-1 animate-bounce block"></i>' : ''}
+                        <span class="text-[10px] sm:text-xs font-bold text-rosegold-accent block">${config.title}</span>
+                        <span class="text-xl sm:text-3xl font-extrabold font-heading text-white">
+                            ${item.table !== '-' ? 'โต๊ะ ' + item.table : '-'}
+                        </span>
+                        <span class="text-[11px] sm:text-xs text-rosegold-light/80 block mt-0.5">
+                            ${item.count} คะแนน
+                        </span>
+                    </div>
+
+                    <div class="w-full ${config.height} ${config.bg} rounded-t-2xl flex flex-col justify-between p-3 text-center shadow-lg relative overflow-hidden">
+                        <div class="absolute inset-0 bg-black/10"></div>
+                        <span class="relative z-10 text-2xl sm:text-4xl font-extrabold font-heading ${config.textColor}">
+                            ${config.rank}
+                        </span>
+                        <div class="relative z-10 text-[10px] sm:text-xs uppercase tracking-wider font-bold ${config.textColor} opacity-80">
+                            GBS 2026
                         </div>
                     </div>
-                    <div class="w-full bg-gradient-to-t from-yellow-900/50 to-yellow-600/30 rounde
+                `;
+                podiumContainer.appendChild(podiumEl);
+            });
+
+            // 2. Render Full Ranking Breakdown
+            const rankingsList = document.getElementById('rankingsList');
+            rankingsList.innerHTML = '';
+
+            sortedTables.forEach((item, idx) => {
+                const rank = idx + 1;
+                const percentage = totalValidVotes > 0 ? ((item.count / totalValidVotes) * 100).toFixed(1) : 0;
+                
+                let rankBadge = `<span class="w-6 h-6 rounded-full bg-white/10 text-xs font-bold flex items-center justify-center text-rosegold-light">${rank}</span>`;
+                if (rank === 1) rankBadge = `<span class="w-6 h-6 rounded-full bg-amber-400 text-amber-950 text-xs font-bold flex items-center justify-center"><i class="fa-solid fa-trophy"></i></span>`;
+                if (rank === 2) rankBadge = `<span class="w-6 h-6 rounded-full bg-gray-300 text-gray-900 text-xs font-bold flex items-center justify-center">2</span>`;
+                if (rank === 3) rankBadge = `<span class="w-6 h-6 rounded-full bg-amber-700 text-white text-xs font-bold flex items-center justify-center">3</span>`;
+
+                const row = document.createElement('div');
+                row.className = 'bg-glam-950/60 rounded-xl p-3 border border-rosegold-accent/10 flex flex-col gap-2';
+
+                row.innerHTML = `
+                    <div class="flex items-center justify-between text-sm">
+                        <div class="flex items-center gap-3">
+                            ${rankBadge}
+                            <span class="font-bold text-white font-heading">โต๊ะ ${item.table}</span>
+                        </div>
+                        <div class="text-right">
+                            <span class="font-bold text-rosegold-gold">${item.count}</span>
+                            <span class="text-xs text-rosegold-light/60">คะแนน (${percentage}%)</span>
+                        </div>
+                    </div>
+                    <div class="w-full bg-black/40 h-2 rounded-full overflow-hidden">
+                        <div class="bg-rosegold-gradient h-full rounded-full transition-all duration-500" style="width: ${percentage}%"></div>
+                    </div>
+                `;
+                rankingsList.appendChild(row);
+            });
+        }
+
+        // Update UI State based on user voted status
+        function updateUIState() {
+            const { hasVoted, votedTable } = getUserVoteStatus();
+            const votingSection = document.getElementById('votingSection');
+            const resultsSection = document.getElementById('resultsSection');
+            const alreadyVotedBanner = document.getElementById('alreadyVotedBanner');
+
+            renderTables();
+
+            if (hasVoted) {
+                // User HAS voted: Hide voting cards, show banner and results
+                alreadyVotedBanner.classList.remove('hidden');
+                document.getElementById('userVotedTableText').innerText = `โต๊ะ ${votedTable}`;
+                
+                votingSection.classList.add('hidden');
+                resultsSection.classList.remove('hidden');
+                
+                renderResults();
+            } else {
+                // User HAS NOT voted: Show voting cards, hide results & banner
+                alreadyVotedBanner.classList.add('hidden');
+                votingSection.classList.remove('hidden');
+                resultsSection.classList.add('hidden');
+            }
+        }
+
+        // Trigger Confetti Effect
+        function triggerConfetti() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 80,
+                    spread: 70,
+                    origin: { y: 0.6 },
+                    colors: ['#ed3b73', '#f3a9b1', '#e0a96d', '#ffffff']
+                });
+            }
+        }
+
+        // ADMIN FUNCTIONS
+        function toggleAdminPanel() {
+            const panel = document.getElementById('adminPanel');
+            panel.classList.toggle('hidden');
+        }
+
+        function clearMyVote() {
+            localStorage.removeItem('gbs2026_hasVoted');
+            localStorage.removeItem('gbs2026_votedTable');
+            alert('ล้างสิทธิ์โหวตเครื่องนี้เรียบร้อยแล้ว! คุณสามารถทดลองโหวตใหม่ได้');
+            updateUIState();
+        }
+
+        function simulateVotes() {
+            const votes = getVotesData();
+            for (let i = 0; i < 50; i++) {
+                const randomTable = Math.floor(Math.random() * TOTAL_TABLES) + 1;
+                if (!DISABLED_TABLES.includes(randomTable)) {
+                    votes[randomTable] = (votes[randomTable] || 0) + 1;
+                }
+            }
+            saveVotesData(votes);
+            alert('สุ่มเพิ่มคะแนนเรียบร้อย (+50 โหวต)');
+            updateUIState();
+        }
+
+        function resetAllVotes() {
+            if (confirm('คุณแน่ใจหรือไม่ว่าต้องการรีเซ็ตคะแนนทั้งหมดเป็น 0?')) {
+                const defaultVotes = {};
+                for (let i = 1; i <= TOTAL_TABLES; i++) {
+                    defaultVotes[i] = 0;
+                }
+                saveVotesData(defaultVotes);
+                localStorage.removeItem('gbs2026_hasVoted');
+                localStorage.removeItem('gbs2026_votedTable');
+                alert('รีเซ็ตระบบทั้งหมดเรียบร้อยแล้ว');
+                updateUIState();
+            }
+        }
+
+        // Initialize App on Load
+        document.addEventListener('DOMContentLoaded', () => {
+            getVotesData();
+            updateUIState();
+        });
+    </script>
+</body>
+</html>
